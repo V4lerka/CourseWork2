@@ -1,0 +1,40 @@
+[
+    {
+        "ICAO24": "4ca56a",
+        "callsign": "RYR25WB ",
+        "assigned_to": "Ireland",
+        "time position": "2026-11-27 01:20:49",
+        "last contact": "2026-11-27 01:20:50",
+        "longitude": 14.4144,
+        "latitude": 35.8989,
+        "baro_altitude": 861.06,
+        "on_ground": false,
+        "velocity": 115.69,
+        "true_track": 308.5,
+        "vertical_rate": 14.96,
+        "ID sensors": null,
+        "geo_altitude": 922.02,
+        "transponder_code": "6572",
+        "emergency/priority": false,
+        "position_source": 0
+    },
+    {
+        "ICAO24": "440d92",
+        "callsign": "TAY8FO  ",
+        "assigned_to": "Austria",
+        "time position": "2026-11-27 01:20:50",
+        "last contact": "2026-11-27 01:20:50",
+        "longitude": 14.163,
+        "latitude": 36.0853,
+        "baro_altitude": 4975.86,
+        "on_ground": false,
+        "velocity": 175.28,
+        "true_track": 324.68,
+        "vertical_rate": 22.11,
+        "ID sensors": null,
+        "geo_altitude": 5105.4,
+        "transponder_code": "6562",
+        "emergency/priority": false,
+        "position_source": 0
+    }
+]
