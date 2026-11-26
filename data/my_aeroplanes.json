@@ -1,0 +1,42 @@
+[
+    {
+        "callsign": "EFD5D   ",
+        "assigned_to": "Germany",
+        "velocity": 187.13,
+        "geo_altitude": 13274.04,
+        "on_ground": false,
+        "vertical_rate": 0.33
+    },
+    {
+        "callsign": "UNI132  ",
+        "assigned_to": "Germany",
+        "velocity": 215.38,
+        "geo_altitude": 13266.42,
+        "on_ground": false,
+        "vertical_rate": 0.33
+    },
+    {
+        "callsign": "ECA4RT  ",
+        "assigned_to": "Germany",
+        "velocity": 210.11,
+        "geo_altitude": 13251.18,
+        "on_ground": false,
+        "vertical_rate": -0.33
+    },
+    {
+        "callsign": "PVD441Q ",
+        "assigned_to": "Germany",
+        "velocity": 227.11,
+        "geo_altitude": 12992.1,
+        "on_ground": false,
+        "vertical_rate": -4.88
+    },
+    {
+        "callsign": "LEJ888  ",
+        "assigned_to": "Germany",
+        "velocity": 196.34,
+        "geo_altitude": 12504.42,
+        "on_ground": false,
+        "vertical_rate": 0
+    }
+]
