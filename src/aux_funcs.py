@@ -1,8 +1,9 @@
 import pycountry
 
 
-def normalize_country(name) -> str | None:
-    """Пытается найти страны по названию при вводе названий стран с небольшими ошибками"""
+def normalize_country(name: str) -> str | None:
+    """Приводит имя страны к названию по ISO при вводе названий стран с небольшими ошибками или заменяет на
+    название-синоним по ISO"""
     try:
         country = pycountry.countries.lookup(name)
         return country.name
