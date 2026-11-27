@@ -18,7 +18,6 @@ class Aeroplane:
         self.on_ground = self._validate_on_ground(on_ground)
         self.vertical_rate = self._validate_vertical_rate(vertical_rate)
 
-
     @staticmethod
     def _validate_callsign(value):
         if type(value) is str:
@@ -26,14 +25,12 @@ class Aeroplane:
         else:
             raise TypeError("Позывной должен быть строковым значением")
 
-
     @staticmethod
     def _validate_assigned_to(value):
         if type(value) is str:
             return value
         else:
             raise TypeError("Страна регистрации должна быть строковым значением")
-
 
     @staticmethod
     def _validate_velocity(value):
@@ -60,7 +57,6 @@ class Aeroplane:
         if not isinstance(value, (int, float)):
             raise TypeError("Значение скорости должно быть числовым")
         return value
-
 
     def __gt__(self, other) -> bool:
         """Метод сравнения по скорости полета"""

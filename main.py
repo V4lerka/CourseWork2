@@ -61,10 +61,11 @@ def user_interaction():
         filter_words = input("Введите через запятую названия стран на английском языке для фильтрации по стране \
 регистрации воздушного судна:\n").split(",")
         filter_words_list = [word.strip().title() for word in filter_words if word.strip()]
-        filter_words_correct = [normalize_country(word) if word else None for word in filter_words_list]
-        if filter_words_correct:
-            print(f"Выбранные страны: {filter_words_correct}")
-            filtered_jets = Aeroplane.filter_aeroplane(sorted_jets, filter_words_correct)
+        filter_words_correct = [normalize_country(word) for word in filter_words_list if word]
+        filter_words_without_none = [word for word in filter_words_correct if word]
+        if filter_words_without_none:
+            print(f"Выбранные страны: {filter_words_without_none}")
+            filtered_jets = Aeroplane.filter_aeroplane(sorted_jets, filter_words_without_none)
             if filtered_jets:
                 break
             else:

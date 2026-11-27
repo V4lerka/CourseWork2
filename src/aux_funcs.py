@@ -1,5 +1,6 @@
 import pycountry
 
+
 def normalize_country(name) -> str | None:
     """Пытается найти страны по названию при вводе названий стран с небольшими ошибками"""
     try:

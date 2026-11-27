@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
-from json import JSONDecodeError
 from typing import Any
 
-from requests import ConnectionError, HTTPError, RequestException, Timeout, TooManyRedirects, get
+from requests import ConnectionError, HTTPError, JSONDecodeError, RequestException, Timeout, TooManyRedirects, get
 
 
 class DefaultAPIAdapter(ABC):
@@ -22,16 +21,28 @@ class APIOpenStreetMap(DefaultAPIAdapter):
         self.__format = "json"
         self.__limit = 1
 
+    @property
+    def url(self):
+        return self.__url
+
+    @property
+    def format(self):
+        return self.__format
+
+    @property
+    def limit(self):
+        return self.__limit
+
     def get_response(self, country: str) -> list[Any]:
         """Метод для отправки запроса к API и получения координат стран"""
 
         params_nominatim = {
             "country": country,
-            "format": self.__format,
-            "limit": self.__limit,
+            "format": self.format,
+            "limit": self.limit,
         }
         try:
-            response = get(url=self.__url, params=params_nominatim, headers=self.headers)
+            response = get(url=self.url, params=params_nominatim, headers=self.headers)
             response.raise_for_status()
             data = response.json()
         except TooManyRedirects as e:
@@ -67,6 +78,10 @@ class APIJetLocator(DefaultAPIAdapter):
         self.__url = "https://opensky-network.org/api/states/all?"
         self.aeroplanes = None
 
+    @property
+    def url(self):
+        return self.__url
+
     def get_response(self, geo_coordinates: list) -> dict[str, Any]:
         """Метод для получения информации по самолетам по их географическим координатам"""
 
@@ -77,27 +92,32 @@ class APIJetLocator(DefaultAPIAdapter):
             "lomax": geo_coordinates[3],
         }
         try:
-            response = get(url=self.__url, params=params)
+            response = get(url=self.url, params=params)
             response.raise_for_status()
             self.aeroplanes = response.json()
         except TooManyRedirects as e:
             print(f"Слишком много перенаправлений: {e}")
-            return {}
+            self.aeroplanes = {}
+            return self.aeroplanes
         except Timeout as e:
             print(f"Превышено время ожидания: {e}")
-            return {}
+            self.aeroplanes = {}
+            return self.aeroplanes
         except HTTPError as e:
             print(f"HTTP ошибка: {e}")
-            return {}
+            self.aeroplanes = {}
+            return self.aeroplanes
         except ConnectionError as e:
             print(f"Ошибка соединения: {e}")
-            return {}
+            self.aeroplanes = {}
+            return self.aeroplanes
         except JSONDecodeError as e:
             print(f"Ошибка декодирования json: {e}")
-            return {}
+            self.aeroplanes = {}
+            return self.aeroplanes
         except RequestException as e:
             print(f"Непредвиденная ошибка запроса: {e}")
-            return {}
+            self.aeroplanes = {}
+            return self.aeroplanes
         else:
             return self.aeroplanes
-
