@@ -10,61 +10,57 @@ class Aeroplane:
         on_ground: bool,
         vertical_rate: float,
     ):
-        if type(callsign) is str:
-            self.__callsign = callsign
+
+        self.callsign = self._validate_callsign(callsign)
+        self.assigned_to = self._validate_assigned_to(assigned_to)
+        self.velocity = self._validate_velocity(velocity)
+        self.geo_altitude = self._validate_geo_altitude(geo_altitude)
+        self.on_ground = self._validate_on_ground(on_ground)
+        self.vertical_rate = self._validate_vertical_rate(vertical_rate)
+
+
+    @staticmethod
+    def _validate_callsign(value):
+        if type(value) is str:
+            return value
         else:
             raise TypeError("Позывной должен быть строковым значением")
 
-        if type(assigned_to) is str:
-            self.__assigned_to = assigned_to
+
+    @staticmethod
+    def _validate_assigned_to(value):
+        if type(value) is str:
+            return value
         else:
             raise TypeError("Страна регистрации должна быть строковым значением")
 
-        if not isinstance(velocity, (int, float)):
-            raise TypeError("Значение скорости должно быть числовым")
-        if velocity >= 0:
-            self.__velocity = velocity
-        else:
-            raise ValueError("Скорость самолета не может быть отрицательной")
 
-        if not isinstance(geo_altitude, (int, float)):
+    @staticmethod
+    def _validate_velocity(value):
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise TypeError("Значение скорости должно быть числовым")
+        if value >= 0:
+            return value
+        raise ValueError("Скорость самолета не может быть отрицательной")
+
+    @staticmethod
+    def _validate_geo_altitude(value):
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
             raise TypeError("Значение высоты должно быть числовым")
-        else:
-            self.__geo_altitude = geo_altitude
+        return value
 
-        if type(on_ground) is bool:
-            self.__on_ground = on_ground
-        else:
-            raise TypeError("Статус нахождения на земле должен быть False или True")
+    @staticmethod
+    def _validate_on_ground(value):
+        if type(value) is bool:
+            return value
+        raise TypeError("Статус нахождения на земле должен быть False или True")
 
-        if not isinstance(velocity, (int, float)):
+    @staticmethod
+    def _validate_vertical_rate(value):
+        if not isinstance(value, (int, float)):
             raise TypeError("Значение скорости должно быть числовым")
-        else:
-            self.__vertical_rate = vertical_rate
+        return value
 
-    @property
-    def callsign(self):
-        return self.__callsign
-
-    @property
-    def assigned_to(self):
-        return self.__assigned_to
-
-    @property
-    def velocity(self):
-        return self.__velocity
-
-    @property
-    def geo_altitude(self):
-        return self.__geo_altitude
-
-    @property
-    def on_ground(self):
-        return self.__on_ground
-
-    @property
-    def vertical_rate(self):
-        return self.__vertical_rate
 
     def __gt__(self, other) -> bool:
         """Метод сравнения по скорости полета"""
@@ -128,19 +124,21 @@ class Aeroplane:
     @staticmethod
     def filter_aeroplane(data: list[Aeroplane], countries: list) -> list[Aeroplane]:
         """Метод фильтрации самолетов по стране регистрации"""
-
-        filtered_jets = list(filter(lambda jet: jet.assigned_to in countries, data))
-        if filtered_jets:
-            return filtered_jets
-        print("По запросу ничего не найдено")
+        if data:
+            filtered_jets = list(filter(lambda jet: jet.assigned_to in countries, data))
+            if filtered_jets:
+                return filtered_jets
+            print("По запросу ничего не найдено")
+            return []
         return []
 
     @staticmethod
     def aeroplanes_by_altitude_range(data: list[Aeroplane], min_value: int, max_value: int) -> list[Aeroplane]:
         """Фильтрация самолетов по высоте полета"""
-
-        filtered_jets = list(filter(lambda jet: min_value < jet.geo_altitude < max_value, data))
-        if filtered_jets:
-            return filtered_jets
-        print("По запросу ничего не найдено")
+        if data:
+            filtered_jets = list(filter(lambda jet: min_value < jet.geo_altitude < max_value, data))
+            if filtered_jets:
+                return filtered_jets
+            print("По запросу ничего не найдено")
+            return []
         return []

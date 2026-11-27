@@ -2,6 +2,8 @@ from src.api import APIJetLocator, APIOpenStreetMap
 from src.aeroplanes import Aeroplane
 from src.utils import JSONSaver
 
+from src.aux_funcs import normalize_country
+
 api_geo = APIOpenStreetMap()
 api_jet = APIJetLocator()
 json_saver = JSONSaver()
@@ -9,10 +11,16 @@ json_saver = JSONSaver()
 # Функция для взаимодействия с пользователем
 def user_interaction():
     print("Трекер самолетов приветствует вас! Программа ищет самолеты в воздушном пространстве выбранной страны\n")
-    country = input("Введите название страны на английском языке:\n")
-    print("Вычисляю список самолетов в воздушном пространстве страны...")
-    coordinates = api_geo.get_response(country)
-    jets = api_jet.get_response(coordinates)
+    while True:
+        country = input("Введите название страны на английском языке:\n")
+        true_name = normalize_country(country)
+        if true_name:
+            print(f"Вычисляю список самолетов в воздушном пространстве {true_name}...")
+            coordinates = api_geo.get_response(true_name)
+            jets = api_jet.get_response(coordinates)
+            break
+        else:
+            print("Страна не найдена из-за некорректного ввода. Попробуйте повторить ввод")
 
     while True:
         is_save = input("Сохранить данные по всем самолетам в файл? yes/no:\n").lower().strip()
@@ -52,15 +60,17 @@ def user_interaction():
     while True:
         filter_words = input("Введите через запятую названия стран на английском языке для фильтрации по стране \
 регистрации воздушного судна:\n").split(",")
-        filter_words_correct = [word.strip().title() for word in filter_words if word.strip()]
+        filter_words_list = [word.strip().title() for word in filter_words if word.strip()]
+        filter_words_correct = [normalize_country(word) if word else None for word in filter_words_list]
         if filter_words_correct:
+            print(f"Выбранные страны: {filter_words_correct}")
             filtered_jets = Aeroplane.filter_aeroplane(sorted_jets, filter_words_correct)
             if filtered_jets:
                 break
             else:
-                print("По запросу ничего не найдено.")
+                print("По запросу самолеты не найдены.")
         else:
-            print("Вы ничего не ввели.")
+            print("Список стран пуст, т.к. вы ничего не ввели или ввели некорректные названия стран.")
 
         while True:
             is_repeat = input("Повторить запрос? yes/no \n").lower().strip()
