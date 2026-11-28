@@ -1,0 +1,74 @@
+[
+    {
+        "callsign": "EFD5D   ",
+        "assigned_to": "Germany",
+        "velocity": 187.13,
+        "geo_altitude": 13274.04,
+        "on_ground": false,
+        "vertical_rate": 0.33
+    },
+    {
+        "callsign": "UNI132  ",
+        "assigned_to": "Germany",
+        "velocity": 215.38,
+        "geo_altitude": 13266.42,
+        "on_ground": false,
+        "vertical_rate": 0.33
+    },
+    {
+        "callsign": "ECA4RT  ",
+        "assigned_to": "Germany",
+        "velocity": 210.11,
+        "geo_altitude": 13251.18,
+        "on_ground": false,
+        "vertical_rate": -0.33
+    },
+    {
+        "callsign": "PVD441Q ",
+        "assigned_to": "Germany",
+        "velocity": 227.11,
+        "geo_altitude": 12992.1,
+        "on_ground": false,
+        "vertical_rate": -4.88
+    },
+    {
+        "callsign": "LEJ888  ",
+        "assigned_to": "Germany",
+        "velocity": 196.34,
+        "geo_altitude": 12504.42,
+        "on_ground": false,
+        "vertical_rate": 0
+    },
+    {
+        "callsign": "VJT474  ",
+        "assigned_to": "Malta",
+        "velocity": 228.93,
+        "geo_altitude": 13921.74,
+        "on_ground": false,
+        "vertical_rate": 0
+    },
+    {
+        "callsign": "VJT972  ",
+        "assigned_to": "Malta",
+        "velocity": 259.32,
+        "geo_altitude": 13746.48,
+        "on_ground": false,
+        "vertical_rate": 0.33
+    },
+    {
+        "callsign": "QQE784  ",
+        "assigned_to": "Qatar",
+        "velocity": 275.68,
+        "geo_altitude": 13700.76,
+        "on_ground": false,
+        "vertical_rate": 0
+    },
+    {
+        "callsign": "VJT473  ",
+        "assigned_to": "Malta",
+        "velocity": 237.27,
+        "geo_altitude": 13373.1,
+        "on_ground": false,
+        "vertical_rate": -0.33
+    }
+]
