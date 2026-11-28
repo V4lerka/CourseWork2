@@ -1,3 +1,5 @@
+import json
+
 import pytest
 
 from src.aeroplanes import Aeroplane
@@ -167,7 +169,7 @@ def test_incomplete_data_to_object_list():
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def aeroplanes_list():
     return [
         Aeroplane("RYR25WB", "Ireland", 115.69, 12000, False, 12.2),
@@ -177,3 +179,74 @@ def aeroplanes_list():
         Aeroplane("Alpha", "USA", 125.69, 7000, False, 2.2),
         Aeroplane("Eagle", "USA", 125.69, 9000, False, 2.2),
     ]
+
+
+@pytest.fixture
+def existing_json():
+    return json.dumps(
+        [
+            {
+                "callsign": "RYR25WB",
+                "assigned_to": "Ireland",
+                "on_ground": False,
+                "velocity": 115.69,
+                "vertical_rate": 14.96,
+                "geo_altitude": 922.02,
+            },
+            {
+                "callsign": "TAY8FO",
+                "assigned_to": "Austria",
+                "on_ground": False,
+                "velocity": 175.28,
+                "vertical_rate": 22.11,
+                "geo_altitude": 5105.4,
+            },
+        ]
+    )
+
+
+@pytest.fixture()
+def test_data_save_to_file():
+    return {
+        "time": 1766142246,
+        "states": [
+            [
+                "4ca56a",
+                "RYR25WB",
+                "Ireland",
+                "1795854120",
+                "1795854120",
+                14.4144,
+                35.8989,
+                861.06,
+                False,
+                115.69,
+                308.5,
+                14.96,
+                None,
+                922.02,
+                "6572",
+                False,
+                0,
+            ],
+            [
+                "440d92",
+                "TAY8FO",
+                "Austria",
+                "1795854120",
+                "1795854120",
+                14.163,
+                36.0853,
+                4975.86,
+                False,
+                175.28,
+                324.68,
+                22.11,
+                None,
+                5105.4,
+                "6562",
+                False,
+                0,
+            ],
+        ],
+    }

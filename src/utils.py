@@ -56,8 +56,15 @@ class JSONSaver(FileProcessor):
         for aeroplane in my_aeroplanes:
             if aeroplane.get("callsign") not in callsigns:
                 data.append(aeroplane)
-        with open(full_path, "w", encoding="utf-8") as file:
-            json.dump(data, file, indent=4)
+        try:
+            with open(full_path, "w", encoding="utf-8") as file:
+                json.dump(data, file, indent=4)
+        except FileNotFoundError as e:
+            print(f"Ошибка, сохранение данных невозможно: {e}")
+        except TypeError as e:
+            print(f"Объект нельзя преобразовать в JSON: {e}")
+        except ValueError as e:
+            print(f"Ошибка значений: {e}")
 
     @staticmethod
     def clear_info(filename: str) -> None:
@@ -65,6 +72,7 @@ class JSONSaver(FileProcessor):
         try:
             with open(full_path, "w", encoding="utf-8") as file:
                 json.dump([], file)
+            print(f"Данные в файле {filename} очищены")
         except FileNotFoundError as e:
             print(f"Ошибка: {e}")
 
@@ -94,7 +102,7 @@ class JSONSaver(FileProcessor):
     def save_to_file(data: dict, filename) -> None:
         """Метод сохраняет ответ от API сервера в файл JSON (данные по всем самолетам в выбранной стране)"""
         if data:
-            if data.get("states"):
+            if data.get("states", []) and len(data.get("states")) > 0:
                 keys = [
                     "ICAO24",
                     "callsign",
@@ -133,4 +141,4 @@ class JSONSaver(FileProcessor):
             else:
                 print("Данные о самолетах отсутствуют")
         else:
-            print("Данные с сервера не были получены или не содержат информации")
+            print("Данные с сервера не были получены или не содержат требуемой информации")
