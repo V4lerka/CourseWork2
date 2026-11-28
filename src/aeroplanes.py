@@ -55,7 +55,7 @@ class Aeroplane:
     @staticmethod
     def _validate_vertical_rate(value):
         if not isinstance(value, (int, float)):
-            raise TypeError("Значение скорости должно быть числовым")
+            raise TypeError("Значение вертикальной скорости должно быть числовым")
         return value
 
     def __gt__(self, other) -> bool:
@@ -66,7 +66,7 @@ class Aeroplane:
         else:
             raise TypeError("Сравнение объектов разных типов невозможно")
 
-    def compare_altitude(self, other) -> bool:
+    def altitude_is_greater_than(self, other) -> bool:
         """Метод сравнения высоты нахождения самолетов"""
 
         if isinstance(other, Aeroplane):
@@ -93,29 +93,34 @@ class Aeroplane:
     @classmethod
     def data_to_object_list(cls, data: dict) -> list[Aeroplane]:
         """Преобразует json-ответ от API сервера в список объектов Aeroplane со значениями атрибутов не None"""
-        if data:
-            if data.get("states"):
+        if data and type(data) is dict:
+            if data.get("states", []) and len(data.get("states")) > 0:
                 jets = []
                 for item in data.get("states"):
-                    attributes = [item[1], item[2], item[9], item[13], item[8], item[11]]
-                    if all(elem is not None for elem in attributes):
-                        jet = cls(*attributes)
-                        jets.append(jet)
+                    if len(item) >= 14:
+                        attributes = [item[1], item[2], item[9], item[13], item[8], item[11]]
+                        if all(elem is not None for elem in attributes):
+                            jet = cls(*attributes)
+                            jets.append(jet)
+                    else:
+                        continue
                 return jets
             print("Данные о самолетах отсутствуют")
             return []
-        print("Данные с сервера не были получены или не содержат информации")
+        print("Данные с сервера не были получены или не содержат требуемой информации")
         return []
 
     @staticmethod
     def sort_aeroplanes(data: list[Aeroplane], top_n: int) -> list[Aeroplane]:
         """Метод сортировки самолетов по высоте и отбор топ N"""
-        sorted_jets = sorted(data, reverse=True, key=lambda jet: jet.geo_altitude)
-        if top_n <= len(data):
-            return sorted_jets[0:top_n]
-        else:
-            print(f"Всего найдено самолетов: {len(data)}")
-            return sorted_jets
+        if data:
+            sorted_jets = sorted(data, reverse=True, key=lambda jet: jet.geo_altitude)
+            if top_n <= len(data):
+                return sorted_jets[0:top_n]
+            else:
+                print(f"Всего найдено самолетов: {len(data)}")
+                return sorted_jets
+        return []
 
     @staticmethod
     def filter_aeroplane(data: list[Aeroplane], countries: list) -> list[Aeroplane]:
@@ -126,6 +131,7 @@ class Aeroplane:
                 return filtered_jets
             print("По запросу ничего не найдено")
             return []
+        print("Список самолетов пуст")
         return []
 
     @staticmethod
@@ -137,4 +143,5 @@ class Aeroplane:
                 return filtered_jets
             print("По запросу ничего не найдено")
             return []
+        print("Список самолетов пуст")
         return []

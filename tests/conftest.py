@@ -1,5 +1,7 @@
 import pytest
 
+from src.aeroplanes import Aeroplane
+
 
 @pytest.fixture
 def test_data_openstreetmap():
@@ -65,3 +67,113 @@ def test_data_opensky():
         "emergency/priority": False,
         "position_source": 0,
     }
+
+
+@pytest.fixture()
+def test_data_aeroplane1():
+    return Aeroplane("RYR25WB", "Ireland", 115.69, 12000, False, 12.2)
+
+
+@pytest.fixture()
+def test_data_aeroplane2():
+    return Aeroplane("R25WB", "Russia", 215.69, 10000, False, 12.2)
+
+
+@pytest.fixture()
+def test_data_to_object_list():
+    return {
+        "time": 1766142246,
+        "states": [
+            [
+                "4ca56a",
+                "RYR25WB",
+                "Ireland",
+                "2026-11-27 01:20:49",
+                "2026-11-27 01:20:50",
+                14.4144,
+                35.8989,
+                861.06,
+                False,
+                115.69,
+                308.5,
+                14.96,
+                None,
+                922.02,
+                "6572",
+                False,
+                0,
+            ],
+            [
+                "440d92",
+                "TAY8FO",
+                "Austria",
+                "2026-11-27 01:20:50",
+                "2026-11-27 01:20:50",
+                14.163,
+                36.0853,
+                4975.86,
+                False,
+                175.28,
+                324.68,
+                22.11,
+                None,
+                5105.4,
+                "6562",
+                False,
+                0,
+            ],
+        ],
+    }
+
+
+@pytest.fixture()
+def test_incomplete_data_to_object_list():
+    return {
+        "time": 1766142246,
+        "states": [
+            [
+                "4ca56a",
+                "RYR25WB",
+                "Ireland",
+                "2026-11-27 01:20:49",
+                "2026-11-27 01:20:50",
+                14.4144,
+                35.8989,
+                861.06,
+                False,
+                115.69,
+                308.5,
+            ],
+            [
+                "440d92",
+                "TAY8FO",
+                "Austria",
+                "2026-11-27 01:20:50",
+                "2026-11-27 01:20:50",
+                14.163,
+                36.0853,
+                4975.86,
+                False,
+                175.28,
+                324.68,
+                22.11,
+                None,
+                5105.4,
+                "6562",
+                False,
+                0,
+            ],
+        ],
+    }
+
+
+@pytest.fixture()
+def aeroplanes_list():
+    return [
+        Aeroplane("RYR25WB", "Ireland", 115.69, 12000, False, 12.2),
+        Aeroplane("Bravo", "USA", 125.69, 9500, False, 2.2),
+        Aeroplane("Charlie", "France", 115.69, 11000, False, 12.2),
+        Aeroplane("RYR25WB", "Spain", 115.69, 13000, False, 12.2),
+        Aeroplane("Alpha", "USA", 125.69, 7000, False, 2.2),
+        Aeroplane("Eagle", "USA", 125.69, 9000, False, 2.2),
+    ]
