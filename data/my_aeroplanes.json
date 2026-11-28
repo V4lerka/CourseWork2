@@ -38,5 +38,37 @@
         "geo_altitude": 12504.42,
         "on_ground": false,
         "vertical_rate": 0
+    },
+    {
+        "callsign": "VJT474  ",
+        "assigned_to": "Malta",
+        "velocity": 228.93,
+        "geo_altitude": 13921.74,
+        "on_ground": false,
+        "vertical_rate": 0
+    },
+    {
+        "callsign": "VJT972  ",
+        "assigned_to": "Malta",
+        "velocity": 259.32,
+        "geo_altitude": 13746.48,
+        "on_ground": false,
+        "vertical_rate": 0.33
+    },
+    {
+        "callsign": "QQE784  ",
+        "assigned_to": "Qatar",
+        "velocity": 275.68,
+        "geo_altitude": 13700.76,
+        "on_ground": false,
+        "vertical_rate": 0
+    },
+    {
+        "callsign": "VJT473  ",
+        "assigned_to": "Malta",
+        "velocity": 237.27,
+        "geo_altitude": 13373.1,
+        "on_ground": false,
+        "vertical_rate": -0.33
     }
 ]
